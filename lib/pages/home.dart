@@ -1,10 +1,11 @@
-import 'package:esperto/pages/notes/notes.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:esperto/pages/passwords/passwords.dart';
 import 'package:esperto/pages/reminders/reminders.dart';
+import 'package:esperto/pages/settings/settings.dart';
+import 'package:esperto/pages/notes/notes.dart';
 import 'package:esperto/pages/tasks/tasks.dart';
-import 'package:esperto/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:esperto/theme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -40,8 +41,8 @@ class _HomePageState extends State<HomePage> {
                 icon: Icon(FontAwesomeIcons.listCheck), label: 'Tasks'),
             BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.key), label: 'Passwords'),
-            BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.clock), label: 'Reminders'),
+            // BottomNavigationBarItem(
+            //     icon: Icon(FontAwesomeIcons.clock), label: 'Reminders'),
             BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.gear), label: 'Settings')
           ],
@@ -58,7 +59,8 @@ class _HomePageState extends State<HomePage> {
           NotesPage(),
           TasksPage(),
           PasswordsPage(),
-          RemindersPage(),
+          // RemindersPage(),
+          SettingsPage()
         ],
       ),
     );

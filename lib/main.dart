@@ -1,32 +1,24 @@
-import 'package:esperto/pages/home.dart';
-import 'package:esperto/theme.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
-import 'models/notes.dart';
-import 'dart:io';
-
+import 'package:esperto/pages/home.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:esperto/theme.dart';
+import 'package:uuid/uuid.dart';
 import 'models/passwords.dart';
 import 'models/reminders.dart';
+import 'models/notes.dart';
 import 'models/tasks.dart';
+import 'models/config.dart';
+import 'dart:io';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  Directory? dir = await getExternalStorageDirectory();
-  await Hive.initFlutter(dir!.path);
-  Hive.registerAdapter(NoteAdapter());
-  Hive.registerAdapter(TaskAdapter());
-  Hive.registerAdapter(PasswordAdapter());
-  Hive.registerAdapter(ReminderAdapter());
-  await Hive.openBox<Note>('notes');
-  await Hive.openBox<Task>('tasks');
-  await Hive.openBox<Password>('passwords');
-  await Hive.openBox<Reminder>('reminders');
+  await initializeDatabase();
   runApp(
-    const MyApp(), 
+    const MyApp(),
   );
 }
 
@@ -45,5 +37,30 @@ class MyApp extends StatelessWidget {
           backgroundColor: DarkTheme.backColor),
       home: const HomePage(),
     );
+  }
+}
+
+Future<void> initializeDatabase() async {
+  Directory? dir = await getExternalStorageDirectory();
+  await Hive.initFlutter(dir!.path);
+  Hive.registerAdapter(NoteAdapter());
+  Hive.registerAdapter(TaskAdapter());
+  Hive.registerAdapter(PasswordAdapter());
+  Hive.registerAdapter(ReminderAdapter());
+  Hive.registerAdapter(ConfigAdapter());
+  await Hive.openBox<Note>('notes');
+  await Hive.openBox<Task>('tasks');
+  await Hive.openBox<Password>('passwords');
+  await Hive.openBox<Reminder>('reminders');
+  await Hive.openBox<Config>('config');
+  Box configCollection = Hive.box<Config>('config');
+  if (configCollection.isEmpty) {
+    var id = const Uuid().v4();
+    Config config = Config(
+      id: id,
+      signup: false,
+      password: "",
+    );
+    configCollection.put(id, config);
   }
 }

@@ -43,7 +43,7 @@ class AddNoteButton extends StatelessWidget {
 const String _heroAddNote = 'add-Note-hero';
 
 class AddNotePopupCard extends StatefulWidget {
-  const AddNotePopupCard({ Key? key }) : super(key: key);
+  const AddNotePopupCard({Key? key}) : super(key: key);
 
   @override
   State<AddNotePopupCard> createState() => _AddNotePopupCardState();
@@ -53,10 +53,10 @@ class _AddNotePopupCardState extends State<AddNotePopupCard> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   Color _color = DarkTheme.backColor;
-  
+
   @override
   Widget build(BuildContext context) {
-   return Center(
+    return Center(
       child: Padding(
         padding: const EdgeInsets.all(32.0),
         child: Hero(
@@ -77,7 +77,6 @@ class _AddNotePopupCardState extends State<AddNotePopupCard> {
                   children: [
                     TextField(
                       controller: titleController,
-                      autofocus: true,
                       decoration: const InputDecoration(
                           hintText: 'Title',
                           border: InputBorder.none,
@@ -116,17 +115,16 @@ class _AddNotePopupCardState extends State<AddNotePopupCard> {
                             return;
                           }
                           Note note = Note(
-                            id: id,
-                            title: titleController.text,
-                            description: descriptionController.text,
-                            color: _color.toString()
-                          );
+                              id: id,
+                              title: titleController.text,
+                              description: descriptionController.text,
+                              color: _color.toString());
                           notes.put(id, note);
                           Navigator.of(context).pop();
                         },
                         style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.all(DarkTheme.borderColor)),
+                            foregroundColor: MaterialStateProperty.all(
+                                DarkTheme.borderColor)),
                         child: const Text('Done'),
                       ),
                     ),

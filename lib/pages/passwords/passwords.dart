@@ -126,6 +126,7 @@ class _PasswordsPageState extends State<PasswordsPage> {
                                     onTap: () {
                                       Clipboard.setData(ClipboardData(
                                           text: password.password));
+                                      showSnackbar(context, "Password Copied");
                                     },
                                     child: const Padding(
                                       padding: EdgeInsets.all(10.0),
