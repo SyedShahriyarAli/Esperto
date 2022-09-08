@@ -1,3 +1,5 @@
+import 'package:esperto/pages/introductions/introduction.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:esperto/pages/home.dart';
@@ -14,6 +16,7 @@ import 'dart:io';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await initializeDatabase();
@@ -35,7 +38,7 @@ class MyApp extends StatelessWidget {
           textTheme:
               const TextTheme(bodyText2: TextStyle(color: DarkTheme.fontColor)),
           backgroundColor: DarkTheme.backColor),
-      home: const HomePage(),
+      home: const IntroductioPage(),
     );
   }
 }

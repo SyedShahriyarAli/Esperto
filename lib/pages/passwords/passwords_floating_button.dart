@@ -23,7 +23,7 @@ class AddPasswordButton extends StatelessWidget {
             return CustomRectTween(begin: begin, end: end);
           },
           child: Material(
-            color: DarkTheme.borderColor,
+            color: DarkTheme.blueColor,
             elevation: 0,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -66,7 +66,7 @@ class _AddPasswordPopupCardState extends State<AddPasswordPopupCard> {
             return CustomRectTween(begin: begin, end: end);
           },
           child: Material(
-            color: DarkTheme.backColor,
+            color: DarkTheme.blueColor,
             elevation: 2,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),

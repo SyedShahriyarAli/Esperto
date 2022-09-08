@@ -10,7 +10,7 @@ class DarkTheme {
 showSnackbar(BuildContext context, String text) {
   final snackBar = SnackBar(
       elevation: 5,
-      width: 150,
+      width: text.length > 17 ? 250 : 150,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
       behavior: SnackBarBehavior.floating,
       content: Text(

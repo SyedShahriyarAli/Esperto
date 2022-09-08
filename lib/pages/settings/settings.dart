@@ -1,5 +1,6 @@
 import 'package:esperto/models/config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import '../../theme.dart';
 
@@ -15,6 +16,7 @@ class _SettingsPageState extends State<SettingsPage> {
   final passwordController = TextEditingController();
   final configCollection = Hive.box<Config>('config');
   late Config config;
+  bool showPassword = false;
 
   _SettingsPageState() {
     config = configCollection.values.first;
@@ -35,13 +37,15 @@ class _SettingsPageState extends State<SettingsPage> {
         body: Center(
           child: SingleChildScrollView(
             child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       TextField(
-                          obscureText: false,
+                          keyboardType: TextInputType.number,
+                          obscureText: !showPassword,
+                          obscuringCharacter: '●',
                           cursorColor: DarkTheme.backColor,
                           controller: passwordController,
                           textInputAction: TextInputAction.done,
@@ -52,6 +56,16 @@ class _SettingsPageState extends State<SettingsPage> {
                               color: DarkTheme.fontColor),
                           textAlignVertical: const TextAlignVertical(y: 0.45),
                           decoration: InputDecoration(
+                              suffixIcon: GestureDetector(
+                                  onTap: () => setState(() {
+                                        showPassword = !showPassword;
+                                      }),
+                                  child: Icon(
+                                    !showPassword
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: DarkTheme.fontColor,
+                                  )),
                               counterText: "",
                               filled: true,
                               fillColor: DarkTheme.borderColor,
@@ -87,12 +101,19 @@ class _SettingsPageState extends State<SettingsPage> {
                                 style: TextStyle(color: DarkTheme.fontColor),
                               ),
                               onPressed: () async {
+                                if (passwordController.text.isNotEmpty &&
+                                    passwordController.text.length < 5) {
+                                  showSnackbar(
+                                      context, "Please Input Pin Of 5 Digits.");
+                                }
                                 Box configs = Hive.box<Config>('config');
                                 Config config = Config(
                                     id: this.config.id,
                                     signup: true,
                                     password: passwordController.text);
                                 configs.put(config.id, config);
+                                showSnackbar(
+                                    context, "Password Changed Successfully");
                               },
                               style: ElevatedButton.styleFrom(
                                   primary: DarkTheme.blueColor,

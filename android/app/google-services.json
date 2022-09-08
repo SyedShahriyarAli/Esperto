@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1074619760213",
+    "project_id": "esperto-app",
+    "storage_bucket": "esperto-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074619760213:android:f3ce1d5686359e51bb5edc",
+        "android_client_info": {
+          "package_name": "com.shahriyarali.esperto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1074619760213-2cn9eiob2dp1j1gi9394ubf812j0u6jt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shahriyarali.esperto",
+            "certificate_hash": "a37572244a3bb055e18129de5fd1a3181483e872"
+          }
+        },
+        {
+          "client_id": "1074619760213-si8vuuhj1mbeqgmlkmlnjmn9qktd7cll.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6dEhyLsETlHASLaWADw6yhHOsH_ke7iE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1074619760213-si8vuuhj1mbeqgmlkmlnjmn9qktd7cll.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
