@@ -10,11 +10,11 @@ class Config {
   });
 
   @HiveField(0)
-  final String id;
+  String id;
 
   @HiveField(1)
-  final bool signup;
+  bool signup;
 
   @HiveField(2)
-  final String password;
+  String password;
 }

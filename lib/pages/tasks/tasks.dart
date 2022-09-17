@@ -281,11 +281,11 @@ class _TasksPageState extends State<TasksPage> {
 
     for (Task item in tasks) {
       if (item.id != tasks[oldindex].id) {
-        if (item.sequence > newindex && newindex > oldindex) {
+        if (item.sequence >= newindex && newindex > oldindex) {
           item.sequence = item.sequence + 1;
-        } else if (item.sequence > newindex && newindex < oldindex) {
+        } else if (item.sequence >= newindex && newindex < oldindex) {
           item.sequence = item.sequence - 1;
-        } else if (item.sequence < newindex) {
+        } else if (item.sequence <= newindex) {
           item.sequence = item.sequence - 1;
         } else {
           item.sequence =

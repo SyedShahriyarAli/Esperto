@@ -66,7 +66,7 @@ class _AddPasswordPopupCardState extends State<AddPasswordPopupCard> {
             return CustomRectTween(begin: begin, end: end);
           },
           child: Material(
-            color: DarkTheme.blueColor,
+            color: DarkTheme.backColor,
             elevation: 2,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),

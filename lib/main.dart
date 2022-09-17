@@ -1,4 +1,5 @@
 import 'package:esperto/pages/introductions/introduction.dart';
+import 'package:esperto/pages/passcode/passcode.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
@@ -13,6 +14,8 @@ import 'models/notes.dart';
 import 'models/tasks.dart';
 import 'models/config.dart';
 import 'dart:io';
+
+Widget _defaultHome = const IntroductioPage();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +41,7 @@ class MyApp extends StatelessWidget {
           textTheme:
               const TextTheme(bodyText2: TextStyle(color: DarkTheme.fontColor)),
           backgroundColor: DarkTheme.backColor),
-      home: const IntroductioPage(),
+      home: _defaultHome,
     );
   }
 }
@@ -56,7 +59,7 @@ Future<void> initializeDatabase() async {
   await Hive.openBox<Password>('passwords');
   await Hive.openBox<Reminder>('reminders');
   await Hive.openBox<Config>('config');
-  Box configCollection = Hive.box<Config>('config');
+  Box<Config> configCollection = Hive.box<Config>('config');
   if (configCollection.isEmpty) {
     var id = const Uuid().v4();
     Config config = Config(
@@ -65,5 +68,12 @@ Future<void> initializeDatabase() async {
       password: "",
     );
     configCollection.put(id, config);
+  } else if (configCollection.values.first.signup == false) {
+    _defaultHome = const IntroductioPage();
+  } else if (configCollection.values.first.signup == true &&
+      configCollection.values.first.password.isNotEmpty) {
+    _defaultHome = const PasscodePage();
+  } else {
+    _defaultHome = const HomePage();
   }
 }

@@ -1,6 +1,9 @@
+import 'package:esperto/models/config.dart';
+import 'package:esperto/pages/home.dart';
 import 'package:esperto/theme.dart';
-import 'package:flutter/foundation.dart';
+import 'package:esperto/utils/google_sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 class IntroductioPage extends StatefulWidget {
@@ -16,6 +19,8 @@ class _IntroductioPageState extends State<IntroductioPage> {
   Widget _buildImage(String assetName, [double width = 150]) {
     return Image.asset('assets/images/$assetName', width: width);
   }
+
+  Box<Config> configCollection = Hive.box<Config>('config');
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +77,7 @@ class _IntroductioPageState extends State<IntroductioPage> {
               padding: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.05),
               child: const Text(
-                "Secure Your Passwords !",
+                "Sign Up !",
                 style: TextStyle(fontSize: 18),
               )),
           bodyWidget: Container(
@@ -88,9 +93,16 @@ class _IntroductioPageState extends State<IntroductioPage> {
                     "Continue With Google",
                     style: TextStyle(color: DarkTheme.fontColor),
                   ),
-                  onPressed: () async {},
+                  onPressed: () async {
+                    await signInWithGoogle();
+                    Config config = configCollection.values.first;
+                    config.signup = true;
+                    configCollection.put(config.id, config);
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const HomePage()));
+                  },
                   style: ElevatedButton.styleFrom(
-                      primary: DarkTheme.blueColor.withOpacity(0.105),
+                      backgroundColor: DarkTheme.blueColor.withOpacity(0.105),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 0, vertical: 15),
                       textStyle: const TextStyle(
@@ -99,7 +111,7 @@ class _IntroductioPageState extends State<IntroductioPage> {
                           fontWeight: FontWeight.w500)),
                 )),
           ),
-          image: _buildImage('google.png'),
+          image: _buildImage('google.png', 100),
           decoration: pageDecoration,
         ),
       ],
